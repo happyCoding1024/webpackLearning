@@ -8,6 +8,7 @@ module.exports = {
   // 入口文件也就是要打包的文件
   entry: {
     main: './src/index.js',
+    sub: './src/index.js',
   },
 
   module: {
@@ -41,7 +42,8 @@ module.exports = {
   ],
   // 打包好文件的信息
   output: {
-    filename: 'dist1.js',
+    publicPath: 'http://cdn.com.cn',
+    filename: '[name].js',
     // 不能直接写相对路径，必须借助node中的path模块
     path: path.resolve(__dirname, 'dist'),
   }
