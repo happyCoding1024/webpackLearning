@@ -13,23 +13,19 @@ module.exports = {
       test: /\.scss$/,
       use: [
         'style-loader',
-        'css-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2
+          }
+        },
         'sass-loader',
         'postcss-loader',
       ]
     }, {
-      test: /\.(jpg|png|gif)$/,
+      test: /\.(eot|ttf|svg|woff)$/,
       use: {
-        loader: 'url-loader',
-        options: {
-          // 使用原文件的名字和后缀
-          name: '[name].[ext]',
-          // 将文件打包到指定的目录
-          outputPath: './images/',
-          // 设定文件的大小，如果小于limit的值就按url-loader的方式去处理
-          // 如果大于 limit 的值那么就会按 file-loade 的方式去处理。
-          limit: 20480,
-        }
+        loader: 'file-loader',
       }
     },]
   },
