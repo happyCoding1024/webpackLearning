@@ -4,11 +4,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   // 打包的模式,，默认的模式是 production
-  mode: 'production',
+  mode: 'development',
+  // none -> 不使用 sourceMap
+  devtool: 'cheap-module-eval-source-map',
+  // 配置 devServer
+  devServer: {
+    contentBase: './dist',
+    open: true,
+
+  },
   // 入口文件也就是要打包的文件
   entry: {
     main: './src/index.js',
-    sub: './src/index.js',
   },
 
   module: {
@@ -42,7 +49,7 @@ module.exports = {
   ],
   // 打包好文件的信息
   output: {
-    publicPath: 'http://cdn.com.cn',
+    publicPath: '/',
     filename: '[name].js',
     // 不能直接写相对路径，必须借助node中的path模块
     path: path.resolve(__dirname, 'dist'),
