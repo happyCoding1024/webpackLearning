@@ -49,15 +49,22 @@ module.exports = {
     }),
   ],
 
+  // splitChunks 代码分割
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    },
+  },
+
   // 打包好文件的信息
   // publicPath: 打包后文件的前缀，如 /main.js
   // filename: 打包后的文件名，[name] 是一个占位符，[name]的值就是前面entry中的main
   // path： 生成的打包文件的存放路径，注意必须借助node中的path模块。并且在使用 npx webpack 执行打包时才会生成dist目录
   // 在使用 dev-server 时生成的打包文件直接保存在内存中，不会存放在dist目录下。
   output: {
-    publicPath: '/',
+    publicPath: '',
     filename: '[name].js',
     // 不能直接写相对路径，必须借助node中的path模块
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
   }
 };
