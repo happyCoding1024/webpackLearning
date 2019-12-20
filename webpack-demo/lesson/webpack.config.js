@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   // 打包的模式,，默认的模式是 production
@@ -11,7 +12,8 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     open: true,
-
+    hot: true,
+    hotOnly: true
   },
   // 入口文件也就是要打包的文件
   entry: {
@@ -20,17 +22,11 @@ module.exports = {
 
   module: {
     rules: [{
-      test: /\.scss$/,
+      test: /\.css$/,
       use: [
         'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 2
-          }
-        },
-        'sass-loader',
-        'postcss-loader',
+        'css-loader',
+        'postcss-loader'
       ]
     }, {
       test: /\.(eot|ttf|svg|woff)$/,
@@ -45,7 +41,8 @@ module.exports = {
     }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets:true, //自动删除未被使用的webpack资源
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   // 打包好文件的信息
   output: {
