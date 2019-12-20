@@ -33,6 +33,11 @@ module.exports = {
       use: {
         loader: 'file-loader',
       }
+    }, {
+      test: /\.js$/,
+      // 第三方的代码没必要进行转换，其实那些代码已经做好了转换。
+      exclude: /node_modules/,
+      loader: 'babel-loader',
     }]
   },
   plugins: [
