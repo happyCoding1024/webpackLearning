@@ -9,6 +9,10 @@ const prodConfig = {
   // module：对 loader 里面的业务代码也生成 source-map
   // eval: 一种执行方式
   devtool: 'cheap-module-source-map',
+  output: {
+    filename: '[name].[contentHash].js',
+    chunkFilename: '[name].[contentHash].chunk.js'
+  }
 };
 
 module.exports = merge(prodConfig, commonConfig);

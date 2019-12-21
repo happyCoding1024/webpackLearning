@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin/dist/clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   // 入口文件也就是要打包的文件
@@ -32,20 +33,25 @@ module.exports = {
       // 使用 babel-loader 时，options 项可以写在根目录下的 .babelrc 文件下
       // exclude 除去什么模块
       exclude: /node_modules/,
-      loader: 'babel-loader',
+      use: [
+        {
+          loader: 'babel-loader',
+        }, {
+          loader: 'imports-loader?this=>window'
+        }
+      ]
     }]
   },
-
-  // plugin: 插件
-  // HtmlWebpackPlugin 自动生成一个 index.html 文件
-  // CleanWebpackPlugin  自动删除上一次打包生成的文件
-  // webpack.HotModuleReplacementPlugin 实现 HMR(热更新)功能
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets:true, //自动删除未被使用的webpack资源
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      _join: ['lodash', 'join']
     }),
   ],
 
@@ -56,15 +62,15 @@ module.exports = {
     },
   },
 
+  // 忽略警告
+  performance: false,
+
   // 打包好文件的信息
   // publicPath: 打包后文件的前缀，如 /main.js
   // filename: 打包后的文件名，[name] 是一个占位符，[name]的值就是前面entry中的main
   // path： 生成的打包文件的存放路径，注意必须借助node中的path模块。并且在使用 npx webpack 执行打包时才会生成dist目录
   // 在使用 dev-server 时生成的打包文件直接保存在内存中，不会存放在dist目录下。
   output: {
-    publicPath: '',
-    filename: '[name].js',
-    // 不能直接写相对路径，必须借助node中的path模块
     path: path.resolve(__dirname, '../dist'),
   }
 };
