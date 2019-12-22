@@ -1,0 +1,17 @@
+{
+  "name": "math_library1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/library.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "happycoding1024",
+  "license": "MIT",
+  "dependencies": {
+    "user": "0.0.0",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
+  }
+}
