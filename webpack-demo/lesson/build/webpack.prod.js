@@ -1,5 +1,6 @@
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common');
+const workboxPlugin = require('workbox-webpack-plugin');
 
 const prodConfig = {
   // 打包的模式,，默认的模式是 production, development 模式下打包后的代码不会被压缩
@@ -9,6 +10,14 @@ const prodConfig = {
   // module：对 loader 里面的业务代码也生成 source-map
   // eval: 一种执行方式
   devtool: 'cheap-module-source-map',
+
+  plugins: [
+    new workboxPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true
+    })
+  ],
+
   output: {
     filename: '[name].[contentHash].js',
     chunkFilename: '[name].[contentHash].chunk.js'
